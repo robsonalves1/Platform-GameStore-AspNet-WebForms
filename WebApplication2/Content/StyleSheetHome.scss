@@ -1,0 +1,71 @@
+﻿#LogoLoja {
+    text-decoration: none;
+    color: white;
+}
+
+#HeaderHome {
+    background-color: #000000a3;
+    color: white;
+    /*#TextWelcome {
+            margin-bottom: 0;
+        }*/
+
+    ul {
+        list-style: none;
+
+        .button-dropdown {
+            /*position: relative;
+            right: -40px;
+            top: 10px;*/
+
+            #DropdownConta {
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+
+}
+
+ul {
+    margin-top: 9px;
+
+    #DropdownContaMenu {
+        position: absolute;
+        right: 5px;
+        background-color: #ddd;
+
+        #BtnAcessaContaCliente {
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            background-color: #ddd;
+        }
+
+        button:hover {
+            background-color: #ccc;
+        }
+    }
+}
+
+#DivFiltersProducts {
+    visibility: hidden;
+    position: absolute;
+    top: 228px;
+    transition: visibility ease-in 1s ease-out 0.5s;
+}
+
+#BtnMostraFiltros {
+    transition: margin-bottom 1s;
+}
+
+#DivProdutos {
+    overflow-x: scroll;
+    scrollbar-width: none;
+}

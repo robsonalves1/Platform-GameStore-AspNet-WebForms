@@ -1,0 +1,12 @@
+﻿#DivResultPublishers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 auto 0 auto;
+}
+
+#ImgPublisher {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+}

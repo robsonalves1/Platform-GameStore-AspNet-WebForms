@@ -1,0 +1,147 @@
+﻿p {
+    font-family: 'Akkurat Std', Helvetica;
+    font-size: 16px;
+}
+
+h3 {
+    font-family: 'Akkurat Std', Helvetica;
+    font-size: 16px;
+    color: black;
+}
+
+    h3 span {
+        font-weight: normal;
+    }
+
+#button {
+    max-width: 345px;
+    min-width: 290px;
+    display: flex;
+    flex-direction: row;
+    height: 0;
+    align-items: flex-end;
+    border-radius: 45px;
+    transition: all ease-in-out .25s;
+    overflow: hidden;
+}
+
+#sneaky-spacer, #transformer {
+    height: 45px;
+    display: flex;
+    transition: all ease-in-out .33s;
+}
+
+#sneaky-spacer {
+    width: 0px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    opacity: 0;
+}
+
+    #sneaky-spacer p {
+        min-width: 130px;
+    }
+
+#transformer {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: #B77D64;
+    border-radius: 45px;
+    color: white;
+    transition: all ease-in-out .33s;
+}
+
+    #transformer p {
+        text-align: center;
+        align-items: center;
+    }
+
+#spinner-wrapper {
+    display: none;
+    border-radius: 45px;
+    background-color: rgba(0,0,0,0);
+}
+
+#main-image img {
+    width: 400px;
+    height: 330px;
+    object-fit: contain;
+}
+
+#main-image {
+    margin: 0 0 25px 0;
+}
+
+#spinner {
+    animation-name: spin;
+    animation-timing-function: linear;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+}
+
+#updating-text-green {
+    color: #2cc157;
+    line-height: 45px;
+    margin: 0;
+}
+
+#updating-text {
+    color: black;
+    line-height: 45px;
+    margin: 0;
+}
+
+#updating-color-prototype {
+    margin: 0 auto;
+    max-width: 345px;
+    min-width: 290px;
+}
+
+#swatches-section {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 20px 0;
+}
+
+.swatch {
+    height: 45px;
+    width: 45px;
+    margin-right: 10px;
+    border-radius: 100px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .swatch img {
+        width: 35px;
+        height: 35px;
+        border-radius: 35px;
+        object-fit: cover;
+    }
+
+    .swatch:hover {
+        border-color: #999;
+    }
+
+    .swatch.selected {
+        border: 2px solid #4a4a4a;
+    }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(720deg);
+    }
+}
+
+#SwatchesSection {
+    display: flex;
+}

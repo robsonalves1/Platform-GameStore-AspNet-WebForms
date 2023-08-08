@@ -1,0 +1,61 @@
+﻿#LogoLoja {
+  text-decoration: none;
+  color: white;
+}
+
+#HeaderHome {
+  background-color: rgba(0, 0, 0, 0.6392156863);
+  color: white;
+  /*#TextWelcome {
+          margin-bottom: 0;
+      }*/
+}
+#HeaderHome ul {
+  list-style: none;
+}
+#HeaderHome ul .button-dropdown {
+  /*position: relative;
+  right: -40px;
+  top: 10px;*/
+}
+#HeaderHome ul .button-dropdown #DropdownConta {
+  color: white;
+  text-decoration: none;
+}
+
+ul {
+  margin-top: 9px;
+}
+ul #DropdownContaMenu {
+  position: absolute;
+  right: 5px;
+  background-color: #ddd;
+}
+ul #DropdownContaMenu #BtnAcessaContaCliente a {
+  text-decoration: none;
+  color: black;
+}
+ul #DropdownContaMenu button {
+  width: 100%;
+  border: none;
+  background-color: #ddd;
+}
+ul #DropdownContaMenu button:hover {
+  background-color: #ccc;
+}
+
+#DivFiltersProducts {
+  visibility: hidden;
+  position: absolute;
+  top: 228px;
+  transition: visibility ease-in 1s ease-out 0.5s;
+}
+
+#BtnMostraFiltros {
+  transition: margin-bottom 1s;
+}
+
+#DivProdutos {
+  overflow-x: scroll;
+  scrollbar-width: none;
+}

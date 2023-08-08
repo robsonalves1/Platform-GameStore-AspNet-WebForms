@@ -1,0 +1,212 @@
+﻿/* Styling the scrollbar track in Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1; /* thumb color, track color */
+}
+
+/*############################################################################################*/
+/*LojaJogos.aspx / ComprarJogo.aspx*/
+nav {
+    #DivSearchBar {
+        position: absolute;
+        left: 25%;
+        width: 50%;
+
+        #DivIconApagaResultados {
+            position: absolute;
+            right: 40px;
+            top: 4px;
+
+            button {
+                border: none;
+                background-color: white;
+            }
+        }
+
+        #DivIconSearch {
+            button {
+                background-color: #0000;
+                border: none;
+            }
+        }
+    }
+
+    ul {
+        .button-dropdown {
+            position: relative;
+            right: 8px;
+            top: 10px;
+
+            #DropdownConta {
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+#DivResultados {
+    position: absolute;
+    display: grid;
+    justify-items: start;
+    background-color: #ddd;
+    width: 47%;
+    padding: 0 0 7px 0;
+    border-radius: 9px;
+    right: 27.5%;
+    top: 52px;
+    z-index: 1;
+
+    button {
+        border-width: 0 0 0 0;
+        background-color: rgba(255,255,255,0);
+        width: 100%;
+        text-align: left;
+    }
+
+    button:hover {
+        background-color: #ccc;
+    }
+
+    .imgProdutoBarraDePesquisa {
+        height: 50px;
+        width: 60px;
+        object-fit: cover;
+    }
+}
+
+#DivJogos {
+    .BtnShowSelectedJogo {
+        background-color: #300753;
+    }
+
+    .DivCardBodyJogos {
+        height: 80px;
+        margin: 0 auto;
+    }
+}
+/*LojaJogos.aspx / ComprarJogo.aspx*/
+/*############################################################################################*/
+
+/*############################################################################################*/
+/*ComprarJogo.aspx*/
+#FieldImgJogo {
+    width: 554px;
+    height: 400px;
+    object-fit: contain;
+}
+
+#DivNameAndDescription {
+    height: 400px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+    
+}
+
+#DivDetailsJogo {
+    align-items: center;
+
+    #BtnBuyJogo {
+        width: 100%;
+    }
+}
+
+#DivGameSameSerie {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+
+
+    h1 {
+        align-self: center;
+    }
+
+    .DivColGameSameSerie {
+        display: flex;
+        flex-direction: column;
+
+        #ImgGameSameSerie {
+            width: 250px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        #BtnSelectGame {
+            width: 250px;
+            height: 62px;
+            background-color: #300753;
+        }
+    }
+}
+
+#DivAchievements {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1; /* thumb color, track color */
+
+    h1 {
+        align-self: center;
+    }
+
+    .DivColAchievements {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        #ImgAchievements {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+}
+
+#DivDevelopmentTeam {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1; /* thumb color, track color */
+
+
+    h1 {
+        align-self: center;
+    }
+
+    .DivColDevelopmentTeam {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        #ImgDevelopmentTeam {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+}
+
+#DivTrailerMovies {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+
+    h1 {
+        align-self: center;
+    }
+}
+
+
+
+/*ComprarJogo.aspx*/
+/*############################################################################################*/

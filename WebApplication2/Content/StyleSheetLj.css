@@ -1,0 +1,168 @@
+﻿#MainNavBar {
+  background-color: #300753;
+}
+
+nav #DivSearchBar {
+  position: absolute;
+  left: 25%;
+  width: 50%;
+}
+nav #DivSearchBar #DivIconApagaResultados {
+  position: relative;
+  right: 40px;
+  top: 4px;
+  /*visibility: hidden;*/
+}
+nav #DivSearchBar #DivIconApagaResultados button {
+  border: none;
+  background-color: white;
+}
+nav ul .button-dropdown {
+  position: relative;
+  right: -40px;
+  top: 10px;
+}
+nav ul .button-dropdown #DropdownConta {
+  color: white;
+  text-decoration: none;
+}
+
+ul #DropdownContaMenu {
+  position: absolute;
+  right: 5px;
+  background-color: #ddd;
+}
+ul #DropdownContaMenu #BtnAcessaContaCliente a {
+  text-decoration: none;
+  color: black;
+}
+ul #DropdownContaMenu button {
+  width: 100%;
+  border: none;
+  background-color: #ddd;
+}
+ul #DropdownContaMenu button:hover {
+  background-color: #ccc;
+}
+
+#cardProduto #FotoProduto {
+  height: 260px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.BtnDirecionaParaLojaInformatica,
+.BtnDirecionaParaLojaJogos,
+.BtnShowDesenvolvedoras {
+  background-color: #300753;
+}
+
+#DivResultados {
+  position: absolute;
+  display: grid;
+  background-color: #ddd;
+  width: 47%;
+  padding: 0 0 7px 0;
+  border-radius: 9px;
+  right: 27.5%;
+  top: 52px;
+  visibility: hidden;
+  z-index: 1;
+}
+#DivResultados button {
+  border-width: 0 0 1px 0;
+  background-color: rgba(255, 255, 255, 0);
+}
+#DivResultados button:hover {
+  background-color: #ccc;
+}
+#DivResultados .imgProdutoBarraDePesquisa {
+  width: 50px;
+}
+
+@media (max-width: 992px) {
+  #cardProduto #FotoProduto {
+    height: 230px;
+  }
+}
+@media (max-width: 768px) {
+  #cardProduto #cardProdutoBody #NomeProduto {
+    font-size: 12px;
+  }
+}
+#DivFiltros section {
+  display: grid;
+}
+#DivFiltros section button {
+  text-align: start;
+  border: none;
+  background-color: white;
+}
+#DivFiltros section button:hover {
+  background-color: #ccc;
+}
+
+.ImgLojaJogos {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+}
+
+#DivDesenvolvedorasDeJogo {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  border-radius: 10px;
+  /* Styling the scrollbar track in Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+#DivDesenvolvedorasDeJogo .DivColDesenvolvedorasDeJogo #ImgDevelopmentTeam {
+  width: 250px;
+  height: 150px;
+  object-fit: cover;
+}
+#DivDesenvolvedorasDeJogo .DivColDesenvolvedorasDeJogo .BtnShowDesenvolvedoras {
+  height: 80%;
+}
+
+/* Styling the scrollbar track */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Styling the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+/* Styling the scrollbar arrows */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/*ComprarProduto.aspx*/
+#SectionComentarios div {
+  border-bottom: 1px solid black;
+}
+
+#DivProdutos #btnComprarProduto {
+  background-color: #300753;
+}
+
+#DivAlertAjax {
+  visibility: hidden;
+}
+
+/*HomeContaCliente.aspx*/
+#DivContaCliente {
+  margin: 0 auto 0 auto;
+}
+
+#TbodyProdutosComprados td img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}

@@ -1,0 +1,34 @@
+﻿[
+  {
+    "outputFile": "Content/StyleSheetLj.css",
+    "inputFile": "Content/StyleSheetLj.scss"
+  },
+  {
+    "outputFile": "Content/StyleSheetLoja.css",
+    "inputFile": "Content/StyleSheetLoja.scss"
+  },
+  {
+    "outputFile": "Content/StyleSheetEstoque.css",
+    "inputFile": "Content/StyleSheetEstoque.scss"
+  },
+  {
+    "outputFile": "Content/StyleSheetTestZoom.css",
+    "inputFile": "Content/StyleSheetTestZoom.scss"
+  },
+  {
+    "outputFile": "Content/StyleSheetLojaJogos.css",
+    "inputFile": "Content/StyleSheetLojaJogos.scss"
+  },
+  {
+    "outputFile": "Content/StyleSheetHomePublishers.css",
+    "inputFile": "Content/StyleSheetHomePublishers.scss"
+  },
+  {
+    "outputFile": "Content/StyleSheetModalLoadPublishers.css",
+    "inputFile": "Content/StyleSheetModalLoadPublishers.scss"
+  },
+  {
+    "outputFile": "Content/StyleSheetHome.css",
+    "inputFile": "Content/StyleSheetHome.scss"
+  }
+]
