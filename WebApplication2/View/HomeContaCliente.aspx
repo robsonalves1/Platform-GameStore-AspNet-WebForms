@@ -49,7 +49,7 @@
                 </table>
 
                 <div class="mb-3">
-                    <button type="button" class="btn btn-secondary col-6 mb-2" runat="server" id="BtnVoltaPaginaAnterior" onserverclick="BtnVoltaPaginaAnterior_Click">Voltar</button>
+                    <button type="button" class="btn btn-secondary col-6 mb-2" runat="server" id="BtnVoltaPaginaAnterior" onserverclick="BtnPreviousPage_Click">Voltar</button>
                     <button type="button" class="btn btn-primary col-6" runat="server" id="BtnPaginaModificar" data-bs-toggle="modal" data-bs-target="#modalModificaUsuario">Modificar</button>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" runat="server" id="BtnModificarUsuario" onserverclick="BtnModificarCliente_Click">Salvar</button>
+                        <button class="btn btn-primary" type="submit" runat="server" id="BtnModificarCliente" onserverclick="BtnModifyAccountClient_Click">Salvar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" runat="server" id="btnCancelarModificarCliente">Cancelar</button>
                     </div>
                 </div>

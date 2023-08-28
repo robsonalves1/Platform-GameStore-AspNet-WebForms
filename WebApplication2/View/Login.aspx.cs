@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -28,6 +29,11 @@ namespace WebApplication2.View
             bool emailMatch = true;
             bool passwordMatch = true;
 
+            // CHECK IF THE USER IS APPROVED
+            string qry = "SELECT usuarioAprovado FROM usuario WHERE usuarioEmail = '" + u.Email + "'";
+            DataTable dt = db.ExecuteReader(qry);
+            bool usuarioApproved = (bool)dt.Rows[0][0];
+
             try
             {
                 if (string.IsNullOrEmpty(u.Email)
@@ -36,10 +42,10 @@ namespace WebApplication2.View
                     divAlert.Visible = true;
                     lblAlert.InnerHtml = "Por favor, preencha todos os campos.";
                 }
-                else
+                else if (usuarioApproved)
                 {
                     string query = "SELECT usuarioId, usuarioNome, usuarioEmail, usuarioCargo, usuarioAdmissao, usuarioHashSenha, usuarioAdministrador FROM usuario WHERE usuarioEmail = '" + u.Email + "'";
-                    DataTable dt = db.ExecuteReader(query);
+                    dt = db.ExecuteReader(query);
 
                     if (dt.Rows.Count > 0)
                     {
@@ -80,6 +86,11 @@ namespace WebApplication2.View
                         lblAlert.InnerHtml = "Email não cadastrado!";
                     }
                 }
+                else
+                {
+                    divAlert.Visible = true;
+                    lblAlert.InnerHtml = "Cadastro de usuário ainda precisa ser aprovado.";
+                }
             }
             catch (Exception ex)
             {
@@ -88,7 +99,7 @@ namespace WebApplication2.View
             }
             finally
             {
-                if (passwordMatch && emailMatch)
+                if (passwordMatch && emailMatch && usuarioApproved)
                     Response.Redirect("Home.aspx");
             }
         }

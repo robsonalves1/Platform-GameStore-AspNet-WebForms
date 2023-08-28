@@ -23,12 +23,12 @@ namespace WebApplication2.View
             if (!IsPostBack)
             {
                 DropdownContaMenu.InnerHtml = "<li>" +
-                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginCliente()\">Login</ button>" +
+                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginClient()\">Login</ button>" +
                                               "</ li>";
 
                 DivIconApagaResultados.Visible = false;
 
-                await GetAllJogos(URI + 1);
+                await GetAllGames(URI + 1);
                 Session["currentPage"] = 1;
                 DivResultados.Visible = false;
 
@@ -43,25 +43,25 @@ namespace WebApplication2.View
                                                         "</ svg>▼</span>";
                     DropdownContaMenu.InnerHtml = "<li>" +
                                                         "<button type=\"button\" id=\"BtnAcessaContaCliente\" runat=\"server\"><a href=\"HomeContaCliente.aspx\">Conta</a></ button>" +
-                                                        "<button type=\"button\" id=\"BtnLogoutContaCliente\" runat=\"server\" onclick=\"BtnLogoutCliente()\">Sair</ button>" +
+                                                        "<button type=\"button\" id=\"BtnLogoutContaCliente\" runat=\"server\" onclick=\"BtnLogoutClient()\">Sair</ button>" +
                                                   "</ li>";
                 }
             }
         }
 
         [WebMethod]
-        public static string BtnLoginCliente()
+        public static string BtnLoginClient()
         {
             return "LoginCliente.aspx";
         }
 
         [WebMethod]
-        public static void BtnLogoutCliente()
+        public static void BtnLogoutClient()
         {
             HttpContext.Current.Session["clienteLogado"] = null;
         }
 
-        protected async Task GetAllJogos(string uri)
+        protected async Task GetAllGames(string uri)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace WebApplication2.View
                             string JogoJsonString = await response.Content.ReadAsStringAsync();
                             JogoJsonString = "[" + JogoJsonString + "]";
                             jsonResposta = JsonConvert.DeserializeObject<JsonRespostaApiRawgListOfGames[]>(JogoJsonString);
-                            LoadAllJogos(jsonResposta);
+                            ShowAllGames(jsonResposta);
                         }
                         else
                         {
@@ -91,7 +91,7 @@ namespace WebApplication2.View
             }
         }
 
-        protected void LoadAllJogos(JsonRespostaApiRawgListOfGames[] jsonRespostaJogos)
+        protected void ShowAllGames(JsonRespostaApiRawgListOfGames[] jsonRespostaJogos)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace WebApplication2.View
                                                     "<div class=\"card-body DivCardBodyJogos\">" +
                                                         "<h5 class=\"card-text\">" + nameJogo + "</h5>" +
                                                     "</div>" +
-                                                    "<button type=\"button\" class=\"btn btn-dark m-2 BtnShowSelectedJogo\" onclick=\"BtnShowSelectedJogo(" + idJogo + ")\">Detalhes</button>" + 
+                                                    "<button type=\"button\" class=\"btn btn-dark m-2 BtnShowSelectedGame\" onclick=\"BtnShowSelectedGame(" + idJogo + ")\">Detalhes</button>" + 
                                                 "</div>" +
                                             "</div>";
                 }
@@ -125,7 +125,7 @@ namespace WebApplication2.View
             }
         }
 
-        protected async Task GetListSearchJogo(string filter)
+        protected async Task GetListSearchGame(string filter)
         {
             string URIDetails = "https://api.rawg.io/api/games?key=81efaba6814e40658121d32daf691878&search=" + filter;
 
@@ -136,12 +136,12 @@ namespace WebApplication2.View
                     string JogoJsonStringDetails = await response.Content.ReadAsStringAsync();
                     JogoJsonStringDetails = "[" + JogoJsonStringDetails + "]";
                     jsonResposta = JsonConvert.DeserializeObject<JsonRespostaApiRawgListOfGames[]>(JogoJsonStringDetails);
-                    LoadListSearchJogo(jsonResposta);
+                    ShowListSearchGame(jsonResposta);
                 }
             }
         }
 
-        protected void LoadListSearchJogo(JsonRespostaApiRawgListOfGames[] jsonResposta)
+        protected void ShowListSearchGame(JsonRespostaApiRawgListOfGames[] jsonResposta)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace WebApplication2.View
                     string name = jsonResposta[0].Results[i].Name;
                     int id = jsonResposta[0].Results[i].Id;
 
-                    DivResultados.InnerHtml += "<button type=\"button\" onclick=\"BtnShowSelectedJogo(" + id + ")\">" +
+                    DivResultados.InnerHtml += "<button type=\"button\" onclick=\"BtnShowSelectedGame(" + id + ")\">" +
                                                     "<img class=\"imgProdutoBarraDePesquisa\" src=\"" + bgImage + "\" />" +
                                                     name + 
                                                 "</button>";
@@ -171,14 +171,14 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string BtnShowSelectedJogo(string id)
+        public static string BtnShowSelectedGame(string id)
         {
             HttpContext.Current.Session["idSelectedJogo"] = id;
             return "ComprarJogo.aspx";
         }
 
         [WebMethod]
-        public static async Task<string> ResultadoPesquisaJogo(string filtro)
+        public static async Task<string> ShowSearchedGame(string filtro)
         {
             JsonRespostaApiRawgListOfGames[] jsonRespostaApiRawgListOfGames = null;
             string res = "";
@@ -209,23 +209,23 @@ namespace WebApplication2.View
         protected async void BtnPreviusPage_Click(object sender, EventArgs e)
         {
             Session["currentPage"] = (int)Session["currentPage"] - 1;
-            await GetAllJogos(URI + Session["currentPage"]);
+            await GetAllGames(URI + Session["currentPage"]);
         }
 
         protected async void BtnNextPage_Click(object sender, EventArgs e)
         {   
             Session["currentPage"] = (int)Session["currentPage"] + 1;
-            await GetAllJogos(URI + Session["currentPage"]);
+            await GetAllGames(URI + Session["currentPage"]);
         }
 
-        protected async void BtnSearchJogo_Click(object sender, EventArgs e)
+        protected async void BtnSearchGame_Click(object sender, EventArgs e)
         {
             string filter = InputSearchBar.Value;
-            await GetListSearchJogo(filter);
+            await GetListSearchGame(filter);
             DivIconApagaResultados.Visible = true;
         }
 
-        protected void BtnIconApagaResultado_Click(object sender, EventArgs e)
+        protected void BtnIconEraseSearchedList_Click(object sender, EventArgs e)
         {
             DivResultados.Visible = false;
             DivIconApagaResultados.Visible = false;

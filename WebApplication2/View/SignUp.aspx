@@ -35,6 +35,7 @@
                 <select class="form-select" aria-label="Default select example" id="SelectDepartamento" runat="server">
                     <option selected="selected">Selecione o departamento</option>
                     <option value="Diretoria">Diretoria</option>
+                    <option value="Tecnologia">Tecnologia</option>
                     <option value="Financas">Finanças</option>
                     <option value="Comercial">Comercial</option>
                     <option value="Marketing">Marketing</option>
@@ -44,7 +45,7 @@
 
             <div class="form-floating mb-3">
                 <select class="form-select" aria-label="Default select example" id="SelectAdministrador" runat="server">
-                    <option selected="selected">Selecione opção</option>
+                    <option selected="selected">Selecione Opção Administrador</option>
                     <option value="true">Sim</option>
                     <option value="false">Não</option>
                 </select>
@@ -59,7 +60,7 @@
             </div>
 
             <div id="divAlertUsuarioCadastrado" runat="server" class="alert alert-success mb-3" visible="false">
-                Usuário cadastrado com sucesso!
+                Solicitação de cadastrado de usuário realizada com sucesso!
             </div>
 
             <div class="form-floating">

@@ -486,12 +486,20 @@
     <Content Include="Content\StyleSheetModalLoadPublishers.scss" />
     <Content Include="Content\StyleSheetHome.scss" />
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
-    <Content Include="Scripts\ComprarProdutoJS.js" />
+    <Content Include="Scripts\JavaScriptApproveAccessPage.js" />
+    <Content Include="Scripts\JavaScriptCompraProduto.js" />
+    <Content Include="Scripts\JavaScriptComprarJogo.js" />
+    <Content Include="Scripts\JavaScriptDropdownLoginLogout.js" />
     <Content Include="Scripts\JavaScriptHome.js" />
+    <Content Include="Scripts\JavaScriptHomeLoja.js" />
+    <Content Include="Scripts\JavaScriptHomePublishers.js" />
+    <Content Include="Scripts\JavaScriptLoja.js" />
+    <Content Include="Scripts\JavaScriptLojaJogos.js" />
     <Content Include="Scripts\jquery-3.6.4.js" />
     <Content Include="Scripts\jquery-3.6.4.min.js" />
     <Content Include="Scripts\jquery-3.6.4.slim.js" />
     <Content Include="Scripts\jquery-3.6.4.slim.min.js" />
+    <Content Include="View\ApproveAccessPage.aspx" />
     <Content Include="View\ComprarJogo.aspx" />
     <Content Include="View\ComprarProduto.aspx" />
     <Content Include="View\Home.aspx" />
@@ -509,10 +517,10 @@
   <ItemGroup>
     <Compile Include="Controller\CntrDB.cs" />
     <Compile Include="Controller\GameController.cs" />
+    <Compile Include="Controller\ValuesTestController.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\ClientesCompras.cs" />
     <Compile Include="Model\DataTrailerMovies.cs" />
-    <Compile Include="Model\Foto.cs" />
     <Compile Include="Model\GamesInResultsPublishers.cs" />
     <Compile Include="Model\JsonRespostaApiRawgDetailsOfGames.cs" />
     <Compile Include="Model\JsonRespostaApiRawgListAchievements.cs" />
@@ -531,6 +539,13 @@
     <Compile Include="Model\ResultsTrailerMovies.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\ApproveAccessPage.aspx.cs">
+      <DependentUpon>ApproveAccessPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ApproveAccessPage.aspx.designer.cs">
+      <DependentUpon>ApproveAccessPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="View\ComprarJogo.aspx.cs">
       <DependentUpon>ComprarJogo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

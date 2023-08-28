@@ -66,12 +66,13 @@ namespace WebApplication2.View
 
                         string hashSenhaString = Convert.ToBase64String(hashBytes);
 
-                        string qry = "INSERT INTO cliente(clienteEmail, clienteNome, clienteHashSenha) VALUES(@EMAIL, @NOME, @HASHSENHA)";
+                        string qry = "INSERT INTO cliente(clienteEmail, clienteNome, clienteHashSenha, clienteAprovado) VALUES(@EMAIL, @NOME, @HASHSENHA, @APROVADO)";
                         using (MySqlCommand cmd = new MySqlCommand(qry))
                         {
                             cmd.Parameters.AddWithValue("@EMAIL", c.Email);
                             cmd.Parameters.AddWithValue("@NOME", c.Nome);
                             cmd.Parameters.AddWithValue("@HASHSENHA", hashSenhaString);
+                            cmd.Parameters.AddWithValue("@APROVADO", true);
                             db.ExecuteNonQuery(qry, cmd);
                         }
 

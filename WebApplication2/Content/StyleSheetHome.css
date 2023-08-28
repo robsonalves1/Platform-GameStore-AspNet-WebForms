@@ -27,11 +27,10 @@ ul {
   margin-top: 9px;
 }
 ul #DropdownContaMenu {
-  position: absolute;
-  right: 5px;
   background-color: #ddd;
 }
-ul #DropdownContaMenu #BtnAcessaContaCliente a {
+ul #DropdownContaMenu #BtnAcessaContaCliente a,
+ul #DropdownContaMenu #BtnAcessaControleDeContas a {
   text-decoration: none;
   color: black;
 }

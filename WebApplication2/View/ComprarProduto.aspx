@@ -5,7 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Comprar produto</title>
-    <script src="../Scripts/jquery-3.6.4.min.js"></script>
     <link href="../Content/StyleSheet.css" rel="stylesheet" />
     <link href="../Content/bootstrap.rtl.min.css" rel="stylesheet" />
     <link href="../Content/StyleSheetLj.css" rel="stylesheet" />
@@ -16,9 +15,9 @@
             <div class="container-fluid">
                 <a class="navbar-brand" style="color: white;" href="HomeLoja.aspx">Loja</a>
                 <div id="DivSearchBar" class="d-flex" runat="server">
-                    <input class="form-control mx-2" type="search" placeholder="Search" aria-label="search" id="InputSearchBar" autocomplete="off" runat="server" onkeyup="ResultadoPesquisaProduto(this.value)" />
+                    <input class="form-control mx-2" type="search" placeholder="Search" aria-label="search" id="InputSearchBar" autocomplete="off" runat="server" onkeyup="ShowListSearchProduct(this.value)" />
                     <div id="DivIconApagaResultados">
-                        <button type="button" onclick="ResultadoPesquisaProduto('')">
+                        <button type="button" onclick="ShowListSearchProduct('')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
@@ -45,20 +44,22 @@
         </div>
 
         <div class="container">
-            <%--DIVALERT EXIBE ERROS--%>
+            <%--DIVALERT--%>
             <div id="DivAlert" runat="server" class="alert alert-danger position-absolute top-50 start-50 translate-middle" visible="false">
                 <label id="LblAlert" runat="server"></label>
+                <button type="button" class="btn-close" aria-label="Close" onclick="CloseDivAlert()"></button>
             </div>
-            <%--DIVALERT EXIBE ERROS AJAX--%>
-            <div id="DivAlertAjax" runat="server" class="alert alert-danger position-absolute top-50 start-50 translate-middle" >
+            <%--DIVALERT AJAX--%>
+            <div id="DivAlertAjax" runat="server" class="alert alert-danger position-absolute top-50 start-50 translate-middle">
                 <label id="LabelAlertAjax" runat="server"></label>
+                <button type="button" class="btn-close" aria-label="Close" onclick="CloseDivAlert()"></button>
             </div>
             <div class="row">
                 <div class="col-12 pt-3">
                     <div class="row">
                         <div class="col-12 col-md-6">
 
-                            <%--DIV SELECIONE A IMAGEM QUE QUER VER DO PRODUTO--%>
+                            <%--DIV SELECT MORE IMGS OF THE PRODUCTS--%>
                             <div id="updating-color-prototype">
 
                                 <div id="main-image">
@@ -99,20 +100,21 @@
 
 
                         </div>
-                        <div class="col-12 col-md-6 ps-lg-10 p-3">
 
-                            <!-- NOME DO PRODUTO -->
+                        <%--PRODUCT--%>
+                        <div class="col-12 col-md-6 ps-lg-10 p-3">
+                            <!-- NAME -->
                             <h3 class="mb-2" id="CampoProdutoNome" runat="server">Nome</h3>
 
-                            <!-- NOME DO PRODUTO -->
+                            <!-- STARS / QUANTITY OF COMMENTS -->
                             <p>
                                 <span class="mb-2" id="CampoProdutoNotaEstrelas" runat="server">5</span> <span id="CampoProdutoNotaQuantidadeDeComentarios" runat="server"></span>
                             </p>
 
-                            <%--MARCA--%>
+                            <%--BRAND--%>
                             <h4 class="mb-2" id="CampoProdutoMarca" runat="server">Marca</h4>
 
-                            <!-- PREÇO -->
+                            <!-- PRICE -->
                             <div class="mb-7">
                                 <span class="fs-lg fw-bold text-gray-350" id="CampoProdutoPreco" runat="server">$0.00</span>
                                 <p>
@@ -120,51 +122,48 @@
                                 </p>
                             </div>
 
-                            <!-- CARACTERÍSTICAS -->
+                            <!-- SPECIFICATIONS -->
                             <div class="mb-7">
                                 <div class="fs-lg text-gray-350 my-3" id="CampoCaracteristicas" runat="server"></div>
                             </div>
 
-
-
                             <div class="form-group">
-
                                 <div class="row gx-5 mb-7">
-
-                                    <%--BOTÃO COMPRAR--%>
+                                    <%--BUY BUTTON--%>
                                     <div class="row">
-                                        <button class="btn btn-secondary col-6" id="BtnCancelarCompra" runat="server" onserverclick="BtnCancelarCompra_Click">Voltar</button>
+                                        <button class="btn btn-secondary col-6" id="BtnCancelarCompra" runat="server" onserverclick="BtnCancelPurchase_Click">Voltar</button>
                                         <button type="button" class="btn btn-dark col-6" id="BtnComprarProduto" onclick="ComprarProduto()">
                                             Comprar
                                         </button>
                                     </div>
-
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
 
-            <%--COMENTÁRIOS--%>
+            <%--COMMENTS--%>
             <div class="row mt-5" id="DivComentarios">
                 <h1>Comentários</h1>
-                <div class="form-floating mb-2">
-                    <textarea class="form-control mb-2" placeholder="Deixe seu comentário aqui" style="height: 100px" id="TxbComentarioProduto" runat="server"></textarea>
-                    <label class="form-label">Comentário</label>
+                <div id="DivContainerAddComentarios" runat="server">
+                    <div class="form-floating mb-2">
+                        <textarea class="form-control mb-2" placeholder="Deixe seu comentário aqui" style="height: 100px" id="TxbComentarioProduto" runat="server"></textarea>
+                        <label class="form-label">Comentário</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="number" class="form-control" id="TxbNotaProduto" placeholder="Nota" runat="server" min="0" max="5" step="1" />
+                        <label for="floatingNota">Nota</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <button type="button" class="btn btn-success" onclick="SendComment()" runat="server">Enviar</button>
+                    </div>
                 </div>
-                <div class="form-floating mb-2">
-                    <input type="number" class="form-control" id="TxbNotaProduto" placeholder="Nota" runat="server" min="0" max="5" step="1" />
-                    <label for="floatingNota">Nota</label>
-                </div>
+
                 <div id="DivAlertComentarios" runat="server" class="alert alert-danger mb-3 " visible="false">
                     <label id="LabelAlertComentarios" runat="server"></label>
                 </div>
-                <%--CHAMAR UMA FUNCÃO ASSINCRONA PARA ATRIBUIR O COMENTÁRIO AO PRODUTO--%>
-                <button type="button" class="btn btn-success" onclick="EnviarComentario()" runat="server">Enviar</button>
+
                 <section class="mt-2 mb-2" id="SectionComentarios" runat="server">
                     <div class="px-5 mt-3">
                         <p>É um ótimo headset. O som de é de espantar, parece que qualquer música fica boa!</p>
@@ -193,156 +192,9 @@
         </footer>
     </form>
 
-    <script type="text/javascript">
-        let qtd = document.getElementById("CampoProdutoQuantidade").innerHTML;
-
-        function BtnExibirProduto(id) {
-            $.ajax({
-                type: "POST",
-                url: "Loja.aspx/MostraProdutoSelecionado",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: '{id: "' + id + '" }',
-                success: function (response) {
-                    window.location.href = response.d;
-                },
-                failure: function (response) {
-                    console.log(response.d);
-                }
-            });
-        }
-
-        function ComprarProduto() {
-            $.ajax({
-                type: "POST",
-                url: "ComprarProduto.aspx/BtnCompraProduto",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: OnSuccess,
-                failure: function (response) {
-                    alert(response.d);
-                }
-            });
-        }
-
-        function OnSuccess(response) {
-            let res = response.d;
-            if (res == 0)
-                alert("Produto não possui mais estoque disponível.");
-            else if (res == "Cliente deve estar logado para comprar!") {
-                document.getElementById("DivAlertAjax").style.visibility = "visible";
-                document.getElementById("LabelAlertAjax").innerHTML = "Cliente deve estar logado para comprar!";
-            }
-            else
-                document.getElementById("CampoProdutoQuantidade").innerHTML = res;
-            
-        }
-
-        function ResultadoPesquisaProduto(filtro) {
-            $.ajax({
-                type: "POST",
-                url: "ComprarProduto.aspx/ResultadoPesquisaProduto",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: '{filtro: "' + filtro + '" }',
-                success: function (response) {
-                    if (response.d == "") {
-                        document.getElementById("InputSearchBar").value = "";
-                        document.getElementById("DivResultados").style.visibility = 'hidden';
-                        document.getElementById("DivIconApagaResultados").style.visibility = 'hidden';
-                    } else {
-                        document.getElementById("DivResultados").style.visibility = 'visible';
-                        document.getElementById("DivIconApagaResultados").style.visibility = 'visible';
-                        document.getElementById("DivResultados").innerHTML = response.d;
-                    }
-                },
-                failure: function (response) {
-                    console.log(response.d);
-                }
-            });
-        }
-
-        function BtnLoginCliente() {
-            $.ajax({
-                type: "POST",
-                url: "ComprarProduto.aspx/BtnLoginCliente",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    window.location.href = response.d;
-                },
-                failure: function (response) {
-                    console.log(response.d);
-                }
-            });
-        }
-
-        function BtnLogoutCliente() {
-            $.ajax({
-                type: "POST",
-                url: "ComprarProduto.aspx/BtnLogoutCliente",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    window.location.reload();
-                },
-                failure: function (response) {
-                    console.log(response.d);
-                }
-            });
-        }
-
-        function EnviarComentario() {
-            if (document.getElementById("TxbComentarioProduto").value != "" && document.getElementById("TxbNotaProduto").value != "") {
-                $.ajax({
-                    type: "POST",
-                    url: "ComprarProduto.aspx/EnviarComentario",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: '{comentario: "' + document.getElementById("TxbComentarioProduto").value + '", nota: "' + document.getElementById("TxbNotaProduto").value + '"}',
-                    success: function (response) {
-                        document.getElementById("SectionComentarios").innerHTML = response.d[0];
-                        document.getElementById("CampoProdutoNotaEstrelas").innerHTML = response.d[1];
-                        document.getElementById("CampoProdutoNotaQuantidadeDeComentarios").innerHTML = "(" + response.d[2] + ")";
-                    },
-                    failure: function (response) {
-                        console.log(response.d[2]);
-                    }
-                });
-            } else {
-                alert("Preencha todos os campos corretamente.");
-            }
-        }
-
-        /*DROPDOWN LOGIN-LOGOUT*/
-        jQuery(document).ready(function (e) {
-            function t(t) {
-                e(t).bind("click", function (t) {
-                    t.preventDefault();
-                    e(this).parent().fadeOut()
-                })
-            }
-            e(".dropdown-toggle").click(function () {
-                var t = e(this).parents(".button-dropdown").children(".dropdown-menu").is(":hidden");
-                e(".button-dropdown .dropdown-menu").hide();
-                e(".button-dropdown .dropdown-toggle").removeClass("active");
-                if (t) {
-                    e(this).parents(".button-dropdown").children(".dropdown-menu").toggle().parents(".button-dropdown").children(".dropdown-toggle").addClass("active")
-                }
-            });
-            e(document).bind("click", function (t) {
-                var n = e(t.target);
-                if (!n.parents().hasClass("button-dropdown")) e(".button-dropdown .dropdown-menu").hide();
-            });
-
-            e(document).bind("click", function (t) {
-                var n = e(t.target);
-                if (!n.parents().hasClass("button-dropdown")) e(".button-dropdown .dropdown-toggle").removeClass("active");
-            })
-        });
-        /*DROPDOWN LOGIN-LOGOUT*/
-    </script>
-    <script src="../Scripts/ComprarProdutoJS.js"></script>
+    <script src="../Scripts/jquery-3.6.4.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/JavaScriptComprarJogo.js"></script>
+    <script src="../Scripts/JavaScriptDropdownLoginLogout.js"></script>
 </body>
 </html>

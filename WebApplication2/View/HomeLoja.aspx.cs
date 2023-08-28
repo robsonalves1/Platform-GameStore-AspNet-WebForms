@@ -24,8 +24,8 @@ namespace WebApplication2.View
                 DropdownContaMenu.InnerHtml = "<li>" +
                                                  "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginCliente()\"> Login </ button>" +
                                               "</ li>";
-                await GetJogos("https://api.rawg.io/api/games?key=81efaba6814e40658121d32daf691878");
-                await GetDesenvolvedorasDeJogo("https://api.rawg.io/api/publishers?key=81efaba6814e40658121d32daf691878");
+                await GetGames("https://api.rawg.io/api/games?key=81efaba6814e40658121d32daf691878");
+                await GetPublishers("https://api.rawg.io/api/publishers?key=81efaba6814e40658121d32daf691878");
             }
             else
             {
@@ -64,7 +64,7 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string ResultadoPesquisaProduto(string filtro)
+        public static string ShowListOfSearchedProduct(string filtro)
         {
             DataTable dt = new DataTable();
             CntrDB db = new CntrDB();
@@ -106,50 +106,50 @@ namespace WebApplication2.View
             }
         }
 
-        protected void BtnDirecionaParaCadeirasGamer_Click(object sender, EventArgs e)
+        protected void BtnGoToGamingChairPage_Click(object sender, EventArgs e)
         {
             Session["filtroDepartamento"] = "Cadeiras";
             Response.Redirect("Loja.aspx");
         }
 
-        protected void BtnDirecionaParaMonitores_Click(object sender, EventArgs e)
+        protected void BtnGoToMonitorPage_Click(object sender, EventArgs e)
         {
             Session["filtroDepartamento"] = "Monitores";
             Response.Redirect("Loja.aspx");
         }
 
-        protected void BtnDirecionaParaHardwares_Click(object sender, EventArgs e)
+        protected void BtnGoToHardwarePage_Click(object sender, EventArgs e)
         {
             Session["filtroDepartamento"] = "Hardwares";
             Response.Redirect("Loja.aspx");
         }
 
-        protected void BtnDirecionaParaPerifericos_Click(object sender, EventArgs e)
+        protected void BtnGoToAccessoriesPage_Click(object sender, EventArgs e)
         {
             Session["filtroDepartamento"] = "Periféricos";
             Response.Redirect("Loja.aspx");
         }
 
-        protected void BtnDirecionaParaRefrigeracao_Click(object sender, EventArgs e)
+        protected void BtnGoToCoolerPage_Click(object sender, EventArgs e)
         {
             Session["filtroDepartamento"] = "Refrigeração";
             Response.Redirect("Loja.aspx");
         }
 
-        protected void BtnDirecionaParaGabinetes_Click(object sender, EventArgs e)
+        protected void BtnGoToCasePage_Click(object sender, EventArgs e)
         {
             Session["filtroDepartamento"] = "Gabinetes";
             Response.Redirect("Loja.aspx");
         }
 
         [WebMethod]
-        public static string MostraProdutoSelecionado(string id)
+        public static string ShowSelectDepartment(string id)
         {
             HttpContext.Current.Session["idProduto"] = id;
             return "ComprarProduto.aspx";
         }
 
-        protected async Task GetJogos(string uri)
+        protected async Task GetGames(string uri)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -158,12 +158,12 @@ namespace WebApplication2.View
                     string JogoJsonString = await response.Content.ReadAsStringAsync();
                     JogoJsonString = "[" + JogoJsonString + "]";
                     JsonRespostaApiRawgListOfGames[] jsonRespostaListOfGames = JsonConvert.DeserializeObject<JsonRespostaApiRawgListOfGames[]>(JogoJsonString);
-                    LoadJogos(jsonRespostaListOfGames);
+                    ShowLoadedGames(jsonRespostaListOfGames);
                 }
             }
         }
 
-        protected void LoadJogos(JsonRespostaApiRawgListOfGames[] jsonRespostaListOfGames)
+        protected void ShowLoadedGames(JsonRespostaApiRawgListOfGames[] jsonRespostaListOfGames)
         {
             try
             {
@@ -175,7 +175,7 @@ namespace WebApplication2.View
                                              "</div>";
                 }
 
-                DivLojaJogos.InnerHtml += "<button type=\"button\" class=\"btn btn-secondary BtnDirecionaParaLojaJogos\" onclick=\"BtnShowJogos()\">Veja Mais Jogos</button>";
+                DivLojaJogos.InnerHtml += "<button type=\"button\" class=\"btn btn-secondary BtnDirecionaParaLojaJogos\" onclick=\"BtnGoToGamesPage()\">Veja Mais Jogos</button>";
             }
             catch (Exception ex)
             {
@@ -184,7 +184,7 @@ namespace WebApplication2.View
             }
         }
 
-        protected async Task GetDesenvolvedorasDeJogo(string uri)
+        protected async Task GetPublishers(string uri)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -193,12 +193,12 @@ namespace WebApplication2.View
                     string JogoDesenvolvedorasJsonString = await response.Content.ReadAsStringAsync();
                     JogoDesenvolvedorasJsonString = "[" + JogoDesenvolvedorasJsonString + "]";
                     JsonRespostaApiRawgListOfPublishers[] jsonRespostaListOfPublishers = JsonConvert.DeserializeObject<JsonRespostaApiRawgListOfPublishers[]>(JogoDesenvolvedorasJsonString);
-                    LoadDesenvolvedorasDeJogo(jsonRespostaListOfPublishers);
+                    ShowPublishers(jsonRespostaListOfPublishers);
                 }
             }
         }
 
-        protected void LoadDesenvolvedorasDeJogo(JsonRespostaApiRawgListOfPublishers[] jsonRespostaListOfPublishers)
+        protected void ShowPublishers(JsonRespostaApiRawgListOfPublishers[] jsonRespostaListOfPublishers)
         {
             try 
             {
@@ -213,7 +213,7 @@ namespace WebApplication2.View
                 }
 
                 DivDesenvolvedorasDeJogo.InnerHtml += "<div class=\"col DivColDesenvolvedorasDeJogo mx-3 t\">" +
-                                                        "<button type=\"button\" class=\"btn btn-secondary BtnShowDesenvolvedoras\" onclick=\"BtnShowDesenvolvedoras()\">Descubra mais</button" + 
+                                                        "<button type=\"button\" class=\"btn btn-secondary BtnGoToPublishersPage\" onclick=\"BtnGoToPublishersPage()\">Descubra mais</button" + 
                                                      "</div>";
             }
             catch (Exception ex)
@@ -224,13 +224,13 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string BtnShowJogos()
+        public static string BtnGoToGamesPage()
         {
             return "LojaJogos.aspx";
         }
 
         [WebMethod]
-        public static string BtnShowDesenvolvedoras()
+        public static string BtnGoToPublishersPage()
         {
             return "HomePublishers.aspx";
         }

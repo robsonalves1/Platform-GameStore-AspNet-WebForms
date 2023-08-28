@@ -18,10 +18,10 @@ namespace WebApplication2.View
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoadConta();
+            LoadAccount();
         }
 
-        protected void BtnModificarCliente_Click(object sender, EventArgs e)
+        protected void BtnModifyAccountClient_Click(object sender, EventArgs e)
         {
             CntrDB db = new CntrDB();
             DataTable dt = new DataTable();
@@ -104,11 +104,11 @@ namespace WebApplication2.View
             }
             finally
             {
-                LoadConta();
+                LoadAccount();
             }
         }
 
-        protected void LoadConta()
+        protected void LoadAccount()
         {
             try
             {
@@ -160,7 +160,7 @@ namespace WebApplication2.View
             }
         }
 
-        protected void BtnVoltaPaginaAnterior_Click(object sender, EventArgs e)
+        protected void BtnPreviousPage_Click(object sender, EventArgs e)
         {
             Response.Redirect("HomeLoja.aspx");
         }

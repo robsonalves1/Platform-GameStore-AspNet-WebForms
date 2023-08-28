@@ -213,6 +213,24 @@ namespace WebApplication2.View
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FieldQuantityPurchased;
 
         /// <summary>
+        /// CampoProdutoNotaEstrelas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CampoProdutoNotaEstrelas;
+
+        /// <summary>
+        /// CampoProdutoNotaQuantidadeDeComentarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CampoProdutoNotaQuantidadeDeComentarios;
+
+        /// <summary>
         /// DivBodyPurchaseDecision control.
         /// </summary>
         /// <remarks>
@@ -265,5 +283,59 @@ namespace WebApplication2.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivDevelopmentTeam;
+
+        /// <summary>
+        /// DivContainerAddComentarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivContainerAddComentarios;
+
+        /// <summary>
+        /// TxbComentarioProduto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea TxbComentarioProduto;
+
+        /// <summary>
+        /// TxbNotaProduto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl TxbNotaProduto;
+
+        /// <summary>
+        /// DivAlertComentarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAlertComentarios;
+
+        /// <summary>
+        /// LabelAlertComentarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LabelAlertComentarios;
+
+        /// <summary>
+        /// SectionComentarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SectionComentarios;
     }
 }

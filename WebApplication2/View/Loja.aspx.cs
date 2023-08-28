@@ -22,19 +22,18 @@ namespace WebApplication2.View
             if (!IsPostBack)
             {
                 DropdownContaMenu.InnerHtml = "<li>" +
-                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginCliente()\"> Login </ button>" +
+                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginClient()\"> Login </ button>" +
                                               "</ li>";
 
-                DivTodosProdutos.InnerHtml = GetProduto((string)Session["filtro"]);
-                //DivFiltros.InnerHtml = LoadFiltro();
+                DivTodosProdutos.InnerHtml = GetProduct((string)Session["filtro"]);
             }
             else
             {
                 DropdownContaMenu.InnerHtml = "<li>" +
-                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginCliente()\"> Login </ button>" +
+                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginClient()\"> Login </ button>" +
                                               "</ li>";
 
-                DivTodosProdutos.InnerHtml = GetProduto((string)Session["filtro"]);
+                DivTodosProdutos.InnerHtml = GetProduct((string)Session["filtro"]);
                 //DivFiltros.InnerHtml = LoadFiltro();
             }
 
@@ -54,7 +53,7 @@ namespace WebApplication2.View
             }
         }
 
-        protected string GetProduto(string filter)
+        protected string GetProduct(string filter)
         {
             string ret = "";
 
@@ -131,7 +130,7 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string BtnLoginCliente()
+        public static string BtnLoginClient()
         {
             return "LoginCliente.aspx";
         }
@@ -143,7 +142,7 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string FiltraProdutos(string filtro)
+        public static string FilterProducts(string filtro)
         {
             Loja l = new Loja();
 
@@ -154,25 +153,18 @@ namespace WebApplication2.View
 
             HttpContext.Current.Session["filtro"] = filtroQry;
             
-            return l.GetProduto(filtroQry);
+            return l.GetProduct(filtroQry);
         }
 
         [WebMethod]
-        public static string MostraProdutoSelecionado(string id)
+        public static string GoToSelectedProductPage(string id)
         {
             HttpContext.Current.Session["idProduto"] = id;
             return "ComprarProduto.aspx";
         }
 
         [WebMethod]
-        public static string SpanProdutosFiltro(string filtro)
-        {
-            Loja l = new Loja();
-            return l.GetProduto(filtro);
-        }
-
-        [WebMethod]
-        public static string ResultadoPesquisaProduto(string filtro)
+        public static string ResultSearchedProduct(string filtro)
         {
             DataTable dt = new DataTable();
             CntrDB db = new CntrDB();
@@ -214,19 +206,13 @@ namespace WebApplication2.View
             }
         }
 
-        [WebMethod]
-        public static string LimpaResultadoPesquisaProduto()
-        {
-            return "Lost focus!";
-        }
-
         protected void BtnSearchBar_Click(object sender, EventArgs e)
         {
             try
             {
                 string txtSearch = InputSearchBar.Value.Trim();
                 string filter = "WHERE produtoNome LIKE '%" + txtSearch + "%'";
-                GetProduto(filter);
+                GetProduct(filter);
             }
             catch (Exception ex)
             {
@@ -235,17 +221,17 @@ namespace WebApplication2.View
             }
         }
 
-        protected void BtnLimparFiltro_Click(object sender, EventArgs e)
+        protected void BtnClearFilter_Click(object sender, EventArgs e)
         {
             Response.Redirect(Request.RawUrl);
         }
 
-        protected void FilterProdutos_Click(object sender, EventArgs e)
+        protected void BtnFilterProducts_Click(object sender, EventArgs e)
         {
             HtmlButton btn = new HtmlButton();
             btn = sender as HtmlButton;
             string filter = btn.Attributes["value"].Trim();
-            DivTodosProdutos.InnerHtml = GetProduto(filter);
+            DivTodosProdutos.InnerHtml = GetProduct(filter);
         }
     }
 }

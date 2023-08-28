@@ -72,8 +72,8 @@ namespace WebApplication2.View
                     u.Departamento = SelectDepartamento.Value.Trim();
                     u.Administrador = Convert.ToBoolean(SelectAdministrador.Value.Trim());
 
-                    string query = "INSERT INTO usuario(usuarioNome, usuarioEmail, usuarioCargo, usuarioDepartamento, usuarioAdmissao, usuarioAdministrador, usuarioHashSenha)" +
-                        "VALUES(@NOME, @EMAIL, @CARGO, @DEPARTAMENTO, @ADMISSAO, @ADMINISTRADOR, @HASHSENHA)";
+                    string query = "INSERT INTO usuario(usuarioNome, usuarioEmail, usuarioCargo, usuarioDepartamento, usuarioAdmissao, usuarioAdministrador, usuarioHashSenha, usuarioAprovado)" +
+                        "VALUES(@NOME, @EMAIL, @CARGO, @DEPARTAMENTO, @ADMISSAO, @ADMINISTRADOR, @HASHSENHA, @APROVADO)";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Parameters.AddWithValue("@NOME", u.Nome);
@@ -83,6 +83,7 @@ namespace WebApplication2.View
                         cmd.Parameters.AddWithValue("@ADMISSAO", u.Admissao);
                         cmd.Parameters.AddWithValue("@ADMINISTRADOR", u.Administrador);
                         cmd.Parameters.AddWithValue("@HASHSENHA", hashSenha);
+                        cmd.Parameters.AddWithValue("@APROVADO", false);
                         db.ExecuteNonQuery(query, cmd);
                     }
                 }

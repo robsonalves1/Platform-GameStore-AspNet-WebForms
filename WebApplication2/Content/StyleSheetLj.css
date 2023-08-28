@@ -144,6 +144,15 @@ ul #DropdownContaMenu button:hover {
 }
 
 /*ComprarProduto.aspx*/
+#DivContainerAddComentarios {
+  height: 175px;
+  text-align: center;
+  position: relative;
+}
+#DivContainerAddComentarios h1 {
+  margin-top: 50px;
+}
+
 #SectionComentarios div {
   border-bottom: 1px solid black;
 }

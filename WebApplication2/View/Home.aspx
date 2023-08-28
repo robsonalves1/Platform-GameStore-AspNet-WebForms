@@ -13,7 +13,6 @@
         <nav class="container d-flex flex-column flex-md-row justify-content-between">
             <a class="py-2" href="Home.aspx" aria-label="Product" id="LogoLoja">Estoque Loja
             </a>
-            <%--<p id="TextWelcome" class="py-2" runat="server"></p>--%>
 
             <ul>
                 <li class="button-dropdown">
@@ -57,7 +56,7 @@
                 </table>
             </div>
 
-            <%--DIVALERT SHOW ERRORS--%>
+            <%--DIVALERT ERRORS--%>
             <div id="divAlert" runat="server" class="alert alert-danger position-absolute top-50 start-0" visible="false">
                 <label id="lblAlert" runat="server"></label>
             </div>
@@ -70,7 +69,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="ContaDetalhesTitle">Detalhes da Conta</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelarAddProduto_Click"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelAddProduct_Click"></button>
                     </div>
                     <div class="modal-body">
                         <div id="DivContaDetalhes">
@@ -91,17 +90,25 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Departamento</label>
-                                <input id="TxbContaDepartamento" type="text" class="form-control" runat="server" />
+                                <select class="form-select" aria-label="Default select example" id="SelectDepartamento" runat="server">
+                                    <option>Selecione o departamento</option>
+                                    <option value="Diretoria">Diretoria</option>
+                                    <option value="Tecnologia">Tecnologia</option>
+                                    <option value="Financas">Finanças</option>
+                                    <option value="Comercial">Comercial</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="RH">RH</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Data de Admissão</label>
-                                <input id="TxbContaAdmissao" type="text" class="form-control" runat="server" disabled="disabled"/>
+                                <input id="TxbContaAdmissao" type="text" class="form-control" runat="server" disabled="disabled" />
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="button" runat="server" id="BtnChangeAccountDetails" onserverclick="BtnChangeAccountDetails_Click">Salvar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" runat="server" id="Button5" onserverclick="BtnCancelarAddProduto_Click">Cancelar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" runat="server" id="Button5" onserverclick="BtnCancelAddProduct_Click">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -113,7 +120,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Novo Produto</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelarAddProduto_Click"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelAddProduct_Click"></button>
                     </div>
                     <div class="modal-body">
                         <div id="divAddProduto">
@@ -155,8 +162,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" runat="server" id="btnAddProduto" onserverclick="BtnAddProduto_Click">Salvar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" runat="server" id="btnCancelarAddProduto" onserverclick="BtnCancelarAddProduto_Click">Cancelar</button>
+                        <button class="btn btn-primary" type="submit" runat="server" id="btnAddProduto" onserverclick="BtnAddProduct_Click">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" runat="server" id="btnCancelarAddProduto" onserverclick="BtnCancelAddProduct_Click">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -168,15 +175,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropeExcluirLabel">Excluir do Produto</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelarAddProduto_Click"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelAddProduct_Click"></button>
                     </div>
                     <div class="modal-body">
                         <div id="divExcluirProduto">
-                            Deseja exlcluir produto?
+                            Deseja excluir produto?
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" runat="server" id="btnExcluirProduto" onserverclick="BtnExcluirProduto_Click">Sim</button>
+                        <button type="button" class="btn btn-success" runat="server" id="btnExcluirProduto" onserverclick="BtnDeleteProduct_Click">Sim</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" runat="server" id="Button2">Não</button>
                     </div>
                 </div>
@@ -189,7 +196,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropDescricaoLabel">Descrição do Produto</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelarAddProduto_Click"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelAddProduct_Click"></button>
                     </div>
                     <div class="modal-body">
                         <div id="divDescricaoProduto">
@@ -229,13 +236,13 @@
             </div>
         </div>
 
-        <!-- MODAL EDIT PRODUCT-->
+        <!-- MODAL UPDATE PRODUCT-->
         <div class="modal fade" id="modalEditarProduto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropEditarLabel">Editar do Produto</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelarAddProduto_Click"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" runat="server" onserverclick="BtnCancelAddProduct_Click"></button>
                     </div>
                     <div class="modal-body">
                         <div id="divEditarProduto">
@@ -281,7 +288,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" runat="server" id="btnEditarProduto" onserverclick="BtnEditarProduto_Click">Editar</button>
+                        <button type="button" class="btn btn-success" runat="server" id="btnEditarProduto" onserverclick="BtnUpdateProduct_Click">Editar</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" runat="server" id="Button1">Cancelar</button>
                     </div>
                 </div>
@@ -303,16 +310,17 @@
         </footer>
     </form>
 
-    <script src="../Scripts/JavaScriptHome.js"></script>
     <script src="../Scripts/jquery-3.6.4.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/JavaScriptHome.js"></script>
+    <script src="../Scripts/JavaScriptDropdownLoginLogout.js"></script>
 
-    <%--SCRIPT IN JQUERY--%>
+    <%--AJAX SCRIPT--%>
     <script>
-        function BtnLogoutUsuario() {
+        function BtnLogoutUser() {
             $.ajax({
                 type: "POST",
-                url: "Home.aspx/BtnLogoutUsuario",
+                url: "Home.aspx/BtnLogoutUser",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -324,33 +332,78 @@
             });
         }
 
-        /*DROPDOWN LOGIN-LOGOUT*/
-        jQuery(document).ready(function (e) {
-            function t(t) {
-                e(t).bind("click", function (t) {
-                    t.preventDefault();
-                    e(this).parent().fadeOut()
-                })
+        function ApplySelectedFilter() {
+            queryFiltraMarca = "";
+
+            console.log(filtroEstoqueMarca.length);
+            console.log(filtroEstoquePreco);
+
+            if (filtroEstoqueMarca.length < 1 && filtroEstoquePreco == "0") {
+                console.log("entrou");
+                return;
             }
-            e(".dropdown-toggle").click(function () {
-                var t = e(this).parents(".button-dropdown").children(".dropdown-menu").is(":hidden");
-                e(".button-dropdown .dropdown-menu").hide();
-                e(".button-dropdown .dropdown-toggle").removeClass("active");
-                if (t) {
-                    e(this).parents(".button-dropdown").children(".dropdown-menu").toggle().parents(".button-dropdown").children(".dropdown-toggle").addClass("active")
+
+            if (filtroEstoqueMarca.length < 1) {
+                queryFiltraMarca = "";
+            } else {
+                queryFiltraMarca = "produtoMarca IN (" + filtroEstoqueMarca.join(",") + ") AND";
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "Home.aspx/ApplySelectedFilter",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: '{filtroEstoque: "WHERE ' + queryFiltraMarca + ' produtoPreco ' + filtroEstoquePreco + '"}',
+                success: function (response) {
+                    let dt = JSON.parse(response.d);
+                    let tBodyProdutos = document.getElementById("TBodyProdutos");
+
+                    tBodyProdutos.innerHTML =
+                        "<tr>" +
+                        "<th scope =\"col\">linha</ th>" +
+                        "<th scope =\"col\">id</ th>" +
+                        "<th scope =\"col\">código</ th>" +
+                        "<th scope =\"col\">quantidade</ th>" +
+                        "<th scope =\"col\">marca</ th>" +
+                        "<th scope =\"col\">Nome</ th>" +
+                        "<th scope =\"col\">preço</ th>" +
+                        "<th scope =\"col\">Departamento</ th>"
+                    "<th scope =\"col\">botões</ th>" +
+                        "</tr>"
+
+                    for (let i = 0; i < dt.length; i++) {
+                        tBodyProdutos.innerHTML += `
+                        <tr>
+                            <td>${dt[i].linha}</td>
+                            <td>${dt[i].produtoId}</td>
+                            <td>${dt[i].produtoCodigo}</td>
+                            <td>${dt[i].produtoQuantidade}</td>
+                            <td>${dt[i].produtoMarca}</td>
+                            <td>${dt[i].produtoNome}</td>
+                            <td>${dt[i].produtoPreco}</td>
+                            <td>${dt[i].produtoDepartamento}</td>
+                            <td>
+                                <button type="button" id="btnDesejaDeletar" class="btn btn-danger" onclick="getBtnId(event)" data-id="${dt[i].linha}" data-bs-toggle="modal" data-bs-target="#modalExluirProduto">Excluir</button>
+                                <button type="button" class="btn btn-info" id="btnMostrarDetalhes" onclick="btnDescricao_click(event)" data-id="${dt[i].linha}" data-bs-toggle="modal" data-bs-target="#modalDescricao">
+                                    Detalhes
+                                </button>
+                                <button type="button" class="btn btn-primary" id="btnEditarProduto" onclick="btnEditar_click(event)" data-id="${dt[i].linha}" data-bs-toggle="modal" data-bs-target="#modalEditarProduto">
+                                    Editar
+                                </button>
+                            </td>
+                        </tr>
+                        `;
+                    }
+
+                    console.log(response.d);
+                },
+                failure: function (response) {
+                    console.log(response.d);
                 }
             });
-            e(document).bind("click", function (t) {
-                var n = e(t.target);
-                if (!n.parents().hasClass("button-dropdown")) e(".button-dropdown .dropdown-menu").hide();
-            });
-
-            e(document).bind("click", function (t) {
-                var n = e(t.target);
-                if (!n.parents().hasClass("button-dropdown")) e(".button-dropdown .dropdown-toggle").removeClass("active");
-            })
-        });
-        /*DROPDOWN LOGIN-LOGOUT*/
+        }
     </script>
+
 </body>
 </html>

@@ -22,7 +22,7 @@ namespace WebApplication2.View
             if (!IsPostBack)
             {
                 DropdownContaMenu.InnerHtml = "<li>" +
-                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginCliente()\">Login</ button>" +
+                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginClient()\">Login</ button>" +
                                               "</ li>";
 
                 DivIconApagaResultados.Visible = false;
@@ -48,7 +48,7 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string BtnLoginCliente()
+        public static string BtnLoginClient()
         {
             return "LoginCliente.aspx";
         }
@@ -62,12 +62,12 @@ namespace WebApplication2.View
                     string PublisherJsonString = await response.Content.ReadAsStringAsync();
                     PublisherJsonString = "[" + PublisherJsonString + "]";
                     jsonRespostaPublishers = JsonConvert.DeserializeObject<JsonRespostaApiRawgListOfPublishers[]>(PublisherJsonString);
-                    LoadAllPublishers(jsonRespostaPublishers);
+                    ShowPublishers(jsonRespostaPublishers);
                 }
             }
         }
 
-        protected void LoadAllPublishers(JsonRespostaApiRawgListOfPublishers[] jsonRespostaP)
+        protected void ShowPublishers(JsonRespostaApiRawgListOfPublishers[] jsonRespostaP)
         {
             try
             {
@@ -146,7 +146,7 @@ namespace WebApplication2.View
                     string name = jsonListOfGamesSearched[0].Results[i].Name;
                     int id = jsonListOfGamesSearched[0].Results[i].Id;
 
-                    DivResultados.InnerHtml += "<button type=\"button\" onclick=\"BtnShowSelectedJogo(" + id + ")\">" +
+                    DivResultados.InnerHtml += "<button type=\"button\" onclick=\"BtnGoToSelectedGame(" + id + ")\">" +
                                                     "<img class=\"imgProdutoBarraDePesquisa\" src=\"" + bgImage + "\" />" +
                                                     name +
                                                 "</button>";
@@ -160,13 +160,13 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string BtnShowSelectedJogo(int id)
+        public static string BtnGoToSelectedGame(int id)
         {
             HttpContext.Current.Session["idSelectedJogo"] = id;
             return "ComprarJogo.aspx";
         }
 
-        protected void BtnIconApagaResultado_Click(object sender, EventArgs e)
+        protected void BtnIconEraseSearchedResults_Click(object sender, EventArgs e)
         {
             DivResultados.Visible = false;
             DivIconApagaResultados.Visible = false;

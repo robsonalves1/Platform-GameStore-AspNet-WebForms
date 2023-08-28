@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
@@ -19,6 +20,7 @@ namespace WebApplication2.View
     {
         CntrDB db = new CntrDB();
         Usuario u = new Usuario();
+        private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,8 +43,10 @@ namespace WebApplication2.View
                                                     "<path fill-rule=\"evenodd\" d=\"M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z\" />" +
                                                     "</ svg>▼</span>";
                 DropdownContaMenu.InnerHtml = "<li>" +
-                                                    "<button type=\"button\" id=\"BtnAcessaContaCliente\" runat=\"server\" data-bs-toggle=\"modal\" data-bs-target=\"#modalContaDetalhes\">Conta</button>" +
-                                                    "<button type=\"button\" id=\"BtnLogoutContaCliente\" runat=\"server\" onclick=\"BtnLogoutUsuario()\">Sair</button>" +
+                                                    "<button type=\"button\" id=\"BtnAcessaContaCliente\" runat=\"server\" data-bs-toggle=\"modal\" data-bs-target=\"#modalContaDetalhes\">Conta</button>";
+                                                    if (u.Administrador)
+                                                        DropdownContaMenu.InnerHtml += "<button type=\"button\" id=\"BtnAcessaControleDeContas\" runat=\"server\"><a href=\"ApproveAccessPage.aspx\">Controle de Contas</a></button>" +
+                                                    "<button type=\"button\" id=\"BtnLogoutContaCliente\" runat=\"server\" onclick=\"BtnLogoutUser()\">Sair</button>" +
                                               "</ li>";
             }
             else
@@ -61,7 +65,12 @@ namespace WebApplication2.View
 
                 TxbContaNome.Value = dt.Rows[0][2].ToString();
                 TxbContaCargo.Value = dt.Rows[0][3].ToString();
-                TxbContaDepartamento.Value = dt.Rows[0][4].ToString();
+
+                ListItem liValue = SelectDepartamento.Items.FindByValue(dt.Rows[0][4].ToString());
+                liValue.Selected = true;
+
+                string sLi = SelectDepartamento.Value;
+
                 TxbContaAdmissao.Value = dt.Rows[0][5].ToString();
             }
             catch (Exception ex)
@@ -77,7 +86,7 @@ namespace WebApplication2.View
             {
                 string res = "";
 
-                // LOAD MARCAS
+                // LOAD BRANDS FILTER
                 string query = "SELECT DISTINCT produtoMarca FROM produto";
                 DataTable dt = db.ExecuteReader(query);
                 res += "<div>";
@@ -94,7 +103,7 @@ namespace WebApplication2.View
                 res += "</div>";
                 
                 
-                //LOAD PREÇOS
+                //LOAD PRICES FILTER
                 res += "<div>" +
                             "<p>Preço</p>" + 
                             "<label> Selecione o preço: </label>" +
@@ -107,7 +116,7 @@ namespace WebApplication2.View
                             "</select>" +
                         "</div>";
                 
-                res += "<button type=\"button\" class=\"btn btn-primary\" id=\"BtnFiltraProdutoEstoque\" onclick=\"FiltraProdutoEstoque()\">Filtrar</button>";
+                res += "<button type=\"button\" class=\"btn btn-primary\" id=\"BtnApplySelectedFilter\" onclick=\"ApplySelectedFilter()\">Filtrar</button>";
 
                 res += "</div>";
 
@@ -123,7 +132,7 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string FiltraProdutoEstoque(string filtroEstoque)
+        public static string ApplySelectedFilter(string filtroEstoque)
         {
 
             Home home = new Home();
@@ -271,7 +280,7 @@ namespace WebApplication2.View
         }
 
         #region Add product
-        protected void BtnAddProduto_Click(object sender, EventArgs e)
+        protected void BtnAddProduct_Click(object sender, EventArgs e)
         {
             try
             {
@@ -355,7 +364,7 @@ namespace WebApplication2.View
             }
         }
 
-        protected void BtnCancelarAddProduto_Click(object sender, EventArgs e)
+        protected void BtnCancelAddProduct_Click(object sender, EventArgs e)
         {
             TxbCodigo.Value = "";
             TxbQuantidade.Value = "";
@@ -365,7 +374,7 @@ namespace WebApplication2.View
         #endregion
 
         #region Delete Product
-        protected void BtnExcluirProduto_Click(object sender, EventArgs e)
+        protected void BtnDeleteProduct_Click(object sender, EventArgs e)
         {
             try
             {
@@ -394,8 +403,8 @@ namespace WebApplication2.View
         }
         #endregion
 
-        #region Edit Product
-        protected void BtnEditarProduto_Click(object sender, EventArgs e)
+        #region Update Product
+        protected void BtnUpdateProduct_Click(object sender, EventArgs e)
         {
             try
             {
@@ -485,21 +494,39 @@ namespace WebApplication2.View
             {
                 if (string.IsNullOrEmpty(TxbContaNome.Value.Trim())
                     || string.IsNullOrEmpty(TxbContaSenha.Value.Trim())
-                    || string.IsNullOrEmpty(TxbContaCargo.Value.Trim())
-                    || string.IsNullOrEmpty(TxbContaDepartamento.Value.Trim()))
+                    || string.IsNullOrEmpty(TxbContaCargo.Value.Trim()))
                 {
                     divAlert.Visible = true;
                     lblAlert.InnerText = "Preencha todos os campos para atualizar a conta";
                 }
                 else
                 {
-                    string qry = "UPDATE usuario SET usuarioNome = @NOME, usuarioSenha = @SENHA, usuarioCargo = @CARGO, usuarioDepartamento = @DEPARTAMENTO WHERE usuarioId = " + u.Id;
+                    byte[] salt = new byte[16];
+                    rngCsp.GetBytes(salt);
+
+                    u.Senha = TxbContaSenha.Value.Trim();
+
+                    byte[] key = new byte[20];
+
+                    using (var deriveBytes = new Rfc2898DeriveBytes(u.Senha, salt, 1000))
+                    {
+                        key = deriveBytes.GetBytes(20);
+                    }
+
+                    byte[] hashBytes = new byte[36];
+
+                    Array.Copy(salt, 0, hashBytes, 0, 16);
+                    Array.Copy(key, 0, hashBytes, 16, 20);
+
+                    string hashSenha = Convert.ToBase64String(hashBytes);
+
+                    string qry = "UPDATE usuario SET usuarioNome = @NOME, usuarioHashSenha = @SENHA, usuarioCargo = @CARGO, usuarioDepartamento = @DEPARTAMENTO WHERE usuarioId = " + u.Id;
                     using (MySqlCommand cmd = new MySqlCommand(qry))
                     {
-                        cmd.Parameters.AddWithValue("@NOME", TxbContaNome.Value);
-                        cmd.Parameters.AddWithValue("@SENHA", TxbContaSenha.Value);
-                        cmd.Parameters.AddWithValue("@CARGO", TxbContaCargo.Value);
-                        cmd.Parameters.AddWithValue("@DEPARTAMENTO", TxbContaDepartamento.Value);
+                        cmd.Parameters.AddWithValue("@NOME", TxbContaNome.Value.Trim());
+                        cmd.Parameters.AddWithValue("@SENHA", hashSenha);
+                        cmd.Parameters.AddWithValue("@CARGO", TxbContaCargo.Value.Trim());
+                        cmd.Parameters.AddWithValue("@DEPARTAMENTO", SelectDepartamento.Value);
                         db.ExecuteNonQuery(qry, cmd);
                     }
                 }
@@ -516,7 +543,7 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string BtnLogoutUsuario()
+        public static string BtnLogoutUser()
         {
             HttpContext.Current.Session["userLogged"] = null;
             return "Login.aspx";

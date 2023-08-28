@@ -11,8 +11,26 @@ namespace WebApplication2.View
 {
 
 
-    public partial class HomeContaCliente
+    public partial class ApproveAccessPage
     {
+
+        /// <summary>
+        /// DropdownConta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor DropdownConta;
+
+        /// <summary>
+        /// DropdownContaMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DropdownContaMenu;
 
         /// <summary>
         /// form1 control.
@@ -22,15 +40,6 @@ namespace WebApplication2.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
-        /// <summary>
-        /// DivContaCliente control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivContaCliente;
 
         /// <summary>
         /// DivAlert control.
@@ -51,138 +60,147 @@ namespace WebApplication2.View
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LblAlert;
 
         /// <summary>
-        /// TxbNome control.
+        /// DivAccountsUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TxbNome;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAccountsUser;
 
         /// <summary>
-        /// TxbEmail control.
+        /// TBodyAccountsUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TxbEmail;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TBodyAccountsUser;
 
         /// <summary>
-        /// THeadProdutosComprados control.
+        /// DivAccountsClient control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl THeadProdutosComprados;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAccountsClient;
 
         /// <summary>
-        /// TbodyProdutosComprados control.
+        /// TBodyAccountsClient control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TbodyProdutosComprados;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TBodyAccountsClient;
 
         /// <summary>
-        /// BtnVoltaPaginaAnterior control.
+        /// div1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton BtnVoltaPaginaAnterior;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
 
         /// <summary>
-        /// BtnPaginaModificar control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton BtnPaginaModificar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label2;
 
         /// <summary>
-        /// DivAlertContaAtualizada control.
+        /// TxbContaNome control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAlertContaAtualizada;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TxbContaNome;
 
         /// <summary>
-        /// div2 control.
+        /// TxbContaSenha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div2;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TxbContaSenha;
 
         /// <summary>
-        /// AlertForm control.
+        /// TxbContaCargo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AlertForm;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TxbContaCargo;
 
         /// <summary>
-        /// TxbNomeModificar control.
+        /// SelectDepartamento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText TxbNomeModificar;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect SelectDepartamento;
 
         /// <summary>
-        /// TxbEmailModificar control.
+        /// TxbContaAdmissao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText TxbEmailModificar;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TxbContaAdmissao;
 
         /// <summary>
-        /// TxbSenhaAntigaModificar control.
+        /// BtnChangeAccountDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword TxbSenhaAntigaModificar;
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnChangeAccountDetails;
 
         /// <summary>
-        /// TxbSenhaAtualModificar control.
+        /// LblInvisibleApproveAccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword TxbSenhaAtualModificar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LblInvisibleApproveAccount;
 
         /// <summary>
-        /// BtnModificarCliente control.
+        /// BtnConfirmAccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton BtnModificarCliente;
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnConfirmAccount;
 
         /// <summary>
-        /// btnCancelarModificarCliente control.
+        /// BtnRejectAccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnCancelarModificarCliente;
+        protected global::System.Web.UI.HtmlControls.HtmlButton BtnRejectAccount;
+
+        /// <summary>
+        /// ValueHiddenField control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField ValueHiddenField;
     }
 }

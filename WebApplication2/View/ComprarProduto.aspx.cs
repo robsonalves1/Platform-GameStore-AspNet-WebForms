@@ -17,33 +17,21 @@ namespace WebApplication2.View
     public partial class ComprarProduto : System.Web.UI.Page
     {
         CntrDB db = new CntrDB();
-        int qtd;
-        float mediaNotaProduto = 0;
+        private int qtd = 0;
+        private float mediaNotaProduto = 0;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                DropdownContaMenu.InnerHtml = "<li>" +
-                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginCliente()\"> Login </ button>" +
-                                              "</ li>";
-
                 CampoProdutoNome.InnerText = (string)HttpContext.Current.Session["idProduto"];
-                GetProduto();
-                SectionComentarios.InnerHtml = GetComentarios();
-                CampoProdutoNotaEstrelas.InnerHtml = GetEstrelas();
-                CampoProdutoNotaQuantidadeDeComentarios.InnerHtml = "(" + GetQuantidadeComentarios((string)HttpContext.Current.Session["idProduto"]) + ")";
-            } 
-            else
-            {
-                DropdownContaMenu.InnerHtml = "<li>" +
-                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginCliente()\"> Login </ button>" +
-                                              "</ li>";
-                SectionComentarios.InnerHtml = GetComentarios();
-                CampoProdutoNotaEstrelas.InnerHtml = GetEstrelas();
-                CampoProdutoNotaQuantidadeDeComentarios.InnerHtml = "(" + GetQuantidadeComentarios((string)HttpContext.Current.Session["idProduto"]) + ")";
+                GetProduct();
             }
+
+            SectionComentarios.InnerHtml = GetComments();
+            CampoProdutoNotaEstrelas.InnerHtml = GetStars();
+            CampoProdutoNotaQuantidadeDeComentarios.InnerHtml = "(" + GetAmountOfComments((string)HttpContext.Current.Session["idProduto"]) + ")";
 
             if (Session["clienteLogado"] != null)
             {
@@ -56,12 +44,25 @@ namespace WebApplication2.View
                                                     "</ svg>▼</span>";
                 DropdownContaMenu.InnerHtml = "<li>" +
                                                     "<button type=\"button\" id=\"BtnAcessaContaCliente\" runat=\"server\"><a href=\"HomeContaCliente.aspx\">Conta</a></ button>" +
-                                                    "<button type=\"button\" id=\"BtnLogoutContaCliente\" runat=\"server\" onclick=\"BtnLogoutCliente()\">Sair</ button>" +
+                                                    "<button type=\"button\" id=\"BtnLogoutContaCliente\" runat=\"server\" onclick=\"BtnLogoutClient()\">Sair</ button>" +
                                               "</ li>";
+
+                ClientAlrearyBoughtProduct();
+            }
+            else
+            {
+                DropdownContaMenu.InnerHtml = "<li>" +
+                                                 "<button type=\"button\" id =\"BtnPaginaLoginCliente\" runat =\"server\" onclick=\"BtnLoginClient()\"> Login </ button>" +
+                                              "</ li>";
+
+                DivContainerAddComentarios.InnerHtml = "<h1>Faça login para comentar</h1>" +
+                                                       "<button type=\"button\" class=\"btn btn-success\" onclick=\"BtnLoginClient()\">Login</button>";
+
+                DivContainerAddComentarios.Attributes["style"] = "background-color: rgba(87, 92, 92, 0.2);";
             }
         }
 
-        protected void GetProduto()
+        protected void GetProduct()
         {
             try
             {
@@ -82,7 +83,6 @@ namespace WebApplication2.View
                 //CampoProdutoImg.Src = "data:image/jpg;base64," + base64StringImg;
                 imgs.Src = "data:image/jpg;base64," + base64StringImg;
 
-                /**/
                 string qry = "SELECT fotoProduto FROM foto WHERE produtoId = " + dt.Rows[0][0];
                 DataTable dt2 = db.ExecuteReader(qry);
 
@@ -102,7 +102,6 @@ namespace WebApplication2.View
 
                     SwatchesSection.Controls.AddAt(i, divImgProduto);
                 }
-                /**/
 
                 CampoProdutoNome.InnerText = (string)dt.Rows[0][3];
                 CampoProdutoPreco.InnerText = (string)dt.Rows[0][4];
@@ -118,13 +117,31 @@ namespace WebApplication2.View
             }
         }
 
-        protected void BtnCancelarCompra_Click(object sender, EventArgs e)
+        protected void ClientAlrearyBoughtProduct()
+        {
+            Cliente cliente = (Cliente)Session["clienteLogado"];
+
+            string query = "SELECT * " +
+                           "FROM clienteCompras " +
+                           "WHERE clienteId = " + cliente.Id + " " +
+                           "AND produtoInformaticaId = " + Session["idProduto"];
+            DataTable dt = new DataTable();
+            dt = db.ExecuteReader(query);
+            if (dt.Rows.Count == 0)
+            {
+                DivContainerAddComentarios.InnerHtml = "<h1>Para poder comentar você precisa comprar o produto primeiro</h1>";
+
+                DivContainerAddComentarios.Attributes["style"] = "background-color: rgba(87, 92, 92, 0.2);";
+            }
+        }
+
+        protected void BtnCancelPurchase_Click(object sender, EventArgs e)
         {
             Response.Redirect("Loja.aspx");
         }
 
         [WebMethod]
-        public static string ResultadoPesquisaProduto(string filtro)
+        public static string ShowListSearchProduct(string filtro)
         {
             DataTable dt = new DataTable();
             CntrDB db = new CntrDB();
@@ -167,7 +184,7 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string BtnCompraProduto()
+        public static string BtnBuyProduct()
         {
             Cliente cliente = new Cliente();
             cliente = (Cliente)HttpContext.Current.Session["clienteLogado"];
@@ -178,8 +195,6 @@ namespace WebApplication2.View
                 {
                     CntrDB db = new CntrDB();
                     int qtd;
-
-                    // 
 
                     string query = "SELECT produtoQuantidadeComprada FROM clienteCompras WHERE clienteId = " + cliente.Id + " AND produtoInformaticaId = " + (string)HttpContext.Current.Session["idProduto"];
                     DataTable dt = db.ExecuteReader(query);
@@ -224,8 +239,6 @@ namespace WebApplication2.View
                         }
                     }
 
-                    //
-
                     string qry = "SELECT produtoQuantidade FROM produto WHERE produtoId = " + (string)HttpContext.Current.Session["idProduto"];
                     dt = db.ExecuteReader(qry);
                     qtd = (int)dt.Rows[0][0];
@@ -259,19 +272,19 @@ namespace WebApplication2.View
         }
 
         [WebMethod]
-        public static string BtnLoginCliente()
+        public static string BtnLoginClient()
         {
             return "LoginCliente.aspx";
         }
 
         [WebMethod]
-        public static void BtnLogoutCliente()
+        public static void BtnLogoutClient()
         {
             HttpContext.Current.Session["clienteLogado"] = null;
         }
 
         [WebMethod]
-        public static string[] EnviarComentario(string comentario, string nota)
+        public static string[] SendComment(string comentario, string nota)
         {
             string[] res = new string[4];
 
@@ -281,22 +294,33 @@ namespace WebApplication2.View
                 DataTable dt = new DataTable();
                 ComprarProduto cp = new ComprarProduto();
                 string qtd = "";
-                
-                // INSERE O COMENTÁRIO NO BANCO DE DADOS
-                string query = "INSERT INTO comentario(produtoId, comentarioTexto, comentarioNota) VALUES(@ID, @COMENTARIO, @NOTA)";
-                using (MySqlCommand cmd = new MySqlCommand(query))
+
+                Cliente cliente = new Cliente();
+                cliente = (Cliente)HttpContext.Current.Session["clienteLogado"];
+
+                if (Convert.ToInt32(nota) >= 0 && Convert.ToInt32(nota) <= 5)
                 {
-                    cmd.Parameters.AddWithValue("@ID", HttpContext.Current.Session["idProduto"]);
-                    cmd.Parameters.AddWithValue("@COMENTARIO", comentario);
-                    cmd.Parameters.AddWithValue("@NOTA", nota);
-                    db.ExecuteNonQuery(query, cmd);
+                    // INSERT THE COMMENT IN THE DATABASE
+                    string query = "INSERT INTO comentario(produtoId, clienteId, comentarioTexto, comentarioNota) VALUES(@IDPRODUTO, @IDCLIENTE, @COMENTARIO, @NOTA)";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Parameters.AddWithValue("@IDPRODUTO", HttpContext.Current.Session["idProduto"]);
+                        cmd.Parameters.AddWithValue("@IDCLIENTE", cliente.Id);
+                        cmd.Parameters.AddWithValue("@COMENTARIO", comentario);
+                        cmd.Parameters.AddWithValue("@NOTA", nota);
+                        db.ExecuteNonQuery(query, cmd);
+                    }
+                }
+                else
+                {
+                    res[3] = "Para enviar comentário nota deve estar entre 0 e 5 pontos.";
                 }
 
-                // PEGA A QUANTIDADE DE COMENTÁRIOS ATRAVÉS DO ID
-                qtd =  cp.GetQuantidadeComentarios((string)HttpContext.Current.Session["idProduto"]);
+                // GET THE Nº OF COMMENTS FROM THE ID OF THE PRODUCT
+                qtd =  cp.GetAmountOfComments((string)HttpContext.Current.Session["idProduto"]);
                 
-                res[0] = cp.GetComentarios();
-                res[1] = cp.GetEstrelas();
+                res[0] = cp.GetComments();
+                res[1] = cp.GetStars();
                 res[2] = qtd;
 
                 return res;
@@ -308,12 +332,16 @@ namespace WebApplication2.View
             }
         }
 
-        protected string GetComentarios()
+        protected string GetComments()
         {
             try
             {
                 string res = "";
-                string query = "SELECT * FROM comentario WHERE produtoId = " + HttpContext.Current.Session["idProduto"] + " ORDER BY comentarioId DESC";
+                string query = "SELECT cm.comentarioId, cm.comentarioTexto, cm.comentarioNota, cl.clienteNome " +
+                               "FROM comentario cm " +
+                               "JOIN cliente cl ON cm.clienteId = cl.clienteId " +
+                               "WHERE cm.produtoId = " + HttpContext.Current.Session["idProduto"] + " ORDER BY cm.comentarioId DESC";
+
                 DataTable dt = db.ExecuteReader(query);
                 if (dt.Rows.Count > 0)
                 {
@@ -321,16 +349,17 @@ namespace WebApplication2.View
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        string comentario = (string)dt.Rows[i][2];
-                        int nota = (int)dt.Rows[i][3];
+                        string comentario = (string)dt.Rows[i][1];
+                        int nota = (int)dt.Rows[i][2];
+                        string nome = (string)dt.Rows[i][3];
 
-                        /*CAMPO COMENTÁRIOS*/
+                        /*REVIEWS*/
                         res += "<div class=\"px - 5 mt - 3\">" +
+                                    "<p><strong>" + nome + "</strong></p>" +
                                     "<p>" + comentario + "</p>" +
                                     "<p>" + nota + "</p>" +
                                 "</div>";
 
-                        /*MÉDIA NOTAS*/
                         mediaNotaProduto = (mediaNotaProduto += nota);
                         totalDeNotas++;
                     }
@@ -347,7 +376,7 @@ namespace WebApplication2.View
             }
         }
 
-        protected string GetEstrelas()
+        protected string GetStars()
         {
             try
             {
@@ -591,7 +620,7 @@ namespace WebApplication2.View
             }
         }
 
-        protected string GetQuantidadeComentarios(string id)
+        protected string GetAmountOfComments(string id)
         {
             DataTable dt = new DataTable();
 
